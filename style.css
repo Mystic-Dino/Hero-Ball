@@ -3,23 +3,128 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  cursor: none;
+}
+
+*::selection {
+  color: #4e90b7;
+  background-color: transparent;
+}
+.interface > *::selection {
+  color: #003366;
 }
 
 body {
   overflow: hidden;
+  margin-top: 2pc;
 }
+
+.contextMenu {
+  width: 23vh;
+  height: 28vh;
+  padding: 10px;
+  display: none;
+  justify-content: center;
+  align-items: baseline;
+  background-color: black;
+  position: absolute;
+  z-index: 1000;
+  flex-direction: column-reverse;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 10px 10px 30px rgba(255,255,255, 0.6);
+}
+.contextMenu > * {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-family: "Baloo 2", cursive;
+  font-size: 20px;
+  width: 20vh;
+  margin: 0 0 7px 0;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  transition: all 0.2s ease-in;
+  border-radius: 5px;
+}
+#menuBtn i {
+  margin-top: 5px;
+  margin-right: 8px;
+}
+#menuBtn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #81cfff;
+}
+.cursor {
+  position: fixed;
+  background: #2696e8;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 20px #2696e8, 0 0 40px #2696e8;
+  transform: translate(-50%, -50%);
+  transition: top 0.001s ease, left 0.001s ease, background 0.5s ease-in;
+  z-index: 10000;
+  border: 3px solid #fff;
+  opacity: 1;
+  right: -10pc;
+  top: var(--top);
+  left: var(--left);
+}
+
+.mouth {
+  height: 0px;
+  width: 44px;
+  background-color: white;
+  border-radius: 0px 0px 20pc 20pc;
+  position: absolute;
+  transform: translate(-23% ,-23%);
+  transition: height 1.5s ease-in;
+  top: 35px;
+  left: 15px;
+}
+.puiple .glass.non-after {
+  opacity: 0;
+}
+.cursor .eyeBg{height: 8px; width: 10px; border-radius: 0 0 50% 50%; background-color: black; position: absolute; transform: translate(50%, 50%);}
+.cursor .puiple {
+  position: absolute;
+  background: white;
+  border-radius: 2px 2px 50% 50%;
+  width: 17px;
+  height: 12px;
+  top: 16px;
+  z-index: 1;
+  transition: all 1s ease;
+}
+
+.cursor .eye1 { left: 7px; }
+.cursor .eye2 { right: 7px; }
+.cursor .eye1 .glass{ transition: opacity 0.1s ease 0.3s; background-color: white; height: 3px; width: 15px; position: relative; left: 16px; display: block; top: 3px;}
+ 
 .loadingPage {
   background: url("photos/backgrounds/loading.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  position: relative;
+  position: absolute;
   height: 112vh;
   top: -7pc;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  transition: opacity 1s linear;
+  z-index: 100;
+}
+
+.clouds {
+  position: relative;
+  top: -33.5pc;
 }
 
 .cloud {
@@ -33,29 +138,12 @@ body {
   left: 3pc;
   animation: floating 80s linear infinite;
 }
-.cloud2, .cloud5 {
-  top: 16pc;
-}
-.cloud1, .cloud3, .cloud6 {
-  top: 11pc;
-}
-
-.cloud2 {
-  left: 25pc;
-}
-
-.cloud3 {
-  left: 49pc;
-}
-
-.cloud5 {
-  left: -18pc;
-}
-
-.cloud6 {
-  left: -38pc;
-}
-
+.cloud2, .cloud5 {top: 16pc;}
+.cloud1, .cloud3, .cloud6 {top: 11pc;}
+.cloud2 {left: 25pc;}
+.cloud3 {left: 49pc;}
+.cloud5 {left: -18pc;}
+.cloud6 {left: -38pc;}
 .cloud:after, .cloud:before{
   content:"";
   position:relative;
@@ -106,43 +194,32 @@ body {
   z-index: 100;
 }
 
+.percent {
+  font-family: "Cherry Bomb One", system-ui;
+  font-size: 5rem;
+  font-weight: 400;
+  position: absolute;
+  color: white;
+  top: 8pc;
+  left: 7pc;
+}
+
 .bar {
-  width: 10vh;
   height: 100%;
   background-color: #4FC3F7;
   position: absolute;
-  transform: scaleX(0.5);
-  transform-origin: left;
-  width: 200vh;
-  animation: filling 25s linear;
-}
-
-@keyframes filling {
-  from {
-    width: 10vh;
-  }
-  to {
-    width: 200vh;
-  }
+  transition: all 0.1s ease-in;
 }
 
 .loadingImg {
-  height: 79%;
+  height: 90%;
   position: absolute;
-  top: 8px;
-  left: 106.37pc;
-  width: 13vh;
-  animation: Moving 24s linear;
+  top: 4px;
+  left: calc(100% - 40px);
+  width: 7.5vh;
+  /*animation: Moving 10s linear; */
+  transition: all 0.01s ease;
   z-index: 10;
-}
-
-@keyframes Moving {
-  from {
-    left: 15px;
-  }
-  to {
-    left: 106.37pc;
-  }
 }
   
 .interface {
@@ -150,14 +227,12 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   position: absolute;
-  opacity: 0;
   height: 125vh;
   width: 100%;
+  top: -118px;
 }
 
-h1,
-.play,
-.characters {
+h1, #btn {
   font-family: "Cherry Bomb One", system-ui;
   font-weight: 400;
   font-style: normal;
@@ -184,7 +259,7 @@ h1 {
   position: absolute;
   border-radius: 50%;
   z-index: 9;
-  margin: 342px 0 0 70.7%;
+  margin: 344px 0 0 70.7%;
 }
 
 .eyes {
@@ -242,28 +317,28 @@ h1 {
 }
 .btns {
   display: inline-grid;
-  margin-left: 37%;
-  margin-top: 10pc;
+  margin-left: 36%;
+  margin-top: 31pc;
   justify-items: center;
 }
-.play,
-.characters {
+
+ #btn {
   background-color: transparent;
   color: white;
   display: inline-grid;
   font-size: 6rem;
   border: none;
   width: 33vh;
-  margin: 22pc 0 0 41%;
+  margin: 0pc 0 0 33%;
   height: fit-content;
-  cursor: pointer;
+
 }
-.play:hover,
-.characters:hover {color: #4da7df;}
+
+button:hover {color: #4da7df;}
 
 .logo {
   position: absolute;
-  margin: 136px 0 0 46pc;
+  margin: 136px 0 0 47pc;
 }
 
 .iwhite {
@@ -275,17 +350,17 @@ h1 {
   box-shadow: white 35px 0px;
 }
 .main {
-  margin: -7px 0 0 -11px;
-  height: 33vh;
-  width: 32vh;
+  margin: -15px 0 0 -14px;
+  height: 37vh;
+  width: 35vh;
 }
 
 .characters {
-  margin: 1pc 0 0;
+  margin-left: -5pc !important;
 }
 
 .loading {
-position: relative;
+  position: relative;
   left: 20pc;
   top: -10%;
   transform: translate(-50%, -50%);
@@ -305,7 +380,7 @@ position: relative;
   top: -18px;
 }
 
-.box {
+.circle {
     width: 85px;
     height: 85px;
     mix-blend-mode: difference;
@@ -316,7 +391,7 @@ position: relative;
     border-radius: 50%;
     background-color: rgba(255, 235, 59, 0.6);
     border: 3px solid #2A2E83;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(5px);
     box-shadow: 0 0 8px #fff5;
     z-index: 100;
 }
@@ -327,5 +402,5 @@ position: relative;
 }
 
 .active {
-  opacity: 0;
+  position: absolute;
 }
